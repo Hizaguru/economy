@@ -1,0 +1,9 @@
+website,industry,sector,fullTimeEmployees,auditRisk,boardRisk,previousClose,open,dayLow,dayHigh,dividendRate,dividendYield,payoutRatio,forwardPE,marketCap,priceToSalesTrailing12Months,profitMargins,priceToBook,trailingEps,longName,freeCashflow,symbol
+https://www.nokia.com,Communication Equipment,Technology,86896,1.0,3.0,4.02,4.05,4.04,4.13,0.12,0.028099999,0.1041,8.387755,23.113654272,0.9091989,0.16981001,1.0756346,0.84,Nokia Oyj,206.0,NOK
+https://www.remedygames.com,Electronic Gaming & Multimedia,Communication Services,334,,,24.15,24.35,24.25,25.25,0.1,0.0041,,-1257.5,0.33877302400000003,7.7721624,-0.0396,3.828006,-0.13,Remedy Entertainment Oyj,0.5101249999999999,REMEDY.HE
+https://kempower.com,Electrical Equipment & Parts,Industrials,375,,,33.54,33.52,33.5,34.5,,,0.0,67.6,1.8731385600000001,18.072865,0.03428,18.62259,0.07,Kempower Oyj,-14.113636999999999,KEMPOWR.HE
+https://www.lockheedmartin.com,Aerospace & Defense,Industrials,116000,4.0,6.0,451.93,452.69,452.08,457.1,12.0,0.026500002,0.53139997,16.286737,115.94358784,1.7528435,0.08599,11.99547,21.96,Lockheed Martin Corporation,4343.625215999999,LMT
+https://www.rheinmetall.com/en/rheinmetall_ag/home.php,Aerospace & Defense,Industrials,21788,2.0,2.0,261.7,264.6,259.4,266.4,4.3,0.0161,0.3744,14.230769,11.55688448,,0.0,4.109843,8.82,Rheinmetall AG,,RHM.DE
+https://www.saabgroup.com,Aerospace & Defense,Industrials,19651,3.0,8.0,590.8,591.6,581.8,595.4,5.3,0.0089,0.276,23.56718,78.88379904,1.7817585,0.058119997,2.6359537,19.86,Saab AB (publ),4922.625024,SAAB-B.ST
+https://www.abc.xyz,Internet Content & Information,Communication Services,190711,6.0,2.0,105.21,105.32,104.74,106.43,,,0.0,17.13145,1344.214532096,4.722972,0.20584999,5.1794505,4.51,Alphabet Inc.,55862.624255999996,GOOG
+https://www.withsecure.com,Software—Infrastructure,Technology,1245,2.0,5.0,1.454,1.479,1.46,1.48,,,0.0,-73.9,0.259940288,1.8894991,3.07393,2.013624,-0.2,WithSecure Oyj,-6.79625,WITH.HE
