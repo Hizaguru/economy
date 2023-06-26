@@ -30,18 +30,19 @@ def buy_or_sell(acceptable_buy_price, current_price):
 
 def get_data(ticker, ng_pe, multiplier, margin):
     quote = si.get_quote_table(ticker)
+    print(quote)
     current_price = quote["Quote Price"]
     eps = quote["EPS (TTM)"]
     growth_df = get_analysts_info(ticker)['Growth Estimates']
-    growth_rate = growth_df.iloc[4][1]
-    growth_rate = growth_rate.rstrip("%")
+    growth_rate = growth_df.iloc[4][1] 
+    growth_rate = str(growth_rate).rstrip("%") if isinstance(growth_rate, str) else ""
     aaa_df = pdr.get_data_fred('AAA')
     current_yield = aaa_df.iloc[-1][0]
 
     output = {
         "current_price": float(current_price),
         "eps": float(eps),
-        "growth_rate": float(growth_rate),
+        "growth_rate": float(growth_rate) if growth_rate else 'N/A',
         "current_yield": float(current_yield),
         "ng_pe": float(ng_pe),
         "multiplier": float(multiplier),
