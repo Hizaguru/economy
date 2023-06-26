@@ -9,6 +9,7 @@ def intrinsic_value(eps, five_years_growth_rate, current_yield_of_aaa_corporate_
         v = (eps * (7 + (1.0*five_years_growth_rate)) * 4.4)
         return v/current_yield_of_aaa_corporate_bonds
     return 'N/A'
+
 def safety_margin(instrincic_value, current_price):
     return current_price/instrincic_value
 
