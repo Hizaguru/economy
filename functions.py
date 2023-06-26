@@ -30,7 +30,6 @@ def buy_or_sell(acceptable_buy_price, current_price):
 
 def get_data(ticker, ng_pe, multiplier, margin):
     quote = si.get_quote_table(ticker)
-    print(quote)
     current_price = quote["Quote Price"]
     eps = quote["EPS (TTM)"]
     growth_df = get_analysts_info(ticker)['Growth Estimates']
