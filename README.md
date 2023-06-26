@@ -2,7 +2,7 @@ This is easy portfolio asset calculator for jupyter-notebook.
 
 Use pip or conda to calculate the assets of your portfolio. Here's how:
 
-1. Clone the project `git clone <project_repository_url>`
+1. Clone the project `git clone https://github.com/Hizaguru/economy.git`
 
 2. Create a Python virtual environment using venv: `python3 -m venv venv`
 
