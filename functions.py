@@ -9,24 +9,17 @@ def intrinsic_value(eps, five_years_growth_rate, current_yield_of_aaa_corporate_
     print(v/current_yield_of_aaa_corporate_bonds)
     return v/current_yield_of_aaa_corporate_bonds
 
-
 def safety_margin(instrincic_value, current_price):
     return current_price/instrincic_value
 
 def acceptable_buy_price(margin_of_safety, difference):
     return margin_of_safety * difference
 
-
-print(acceptable_buy_price(0.65, safety_margin(
-    intrinsic_value(5.11, 17.93, 2.57), 145.86)))
-
-
 def buy_or_sell(acceptable_buy_price, current_price):
     if acceptable_buy_price > current_price:
         return "buy"
     else:
-        return "sell"
-    
+        return "sell"  
 
 def get_data(ticker, ng_pe, multiplier, margin):
     quote = si.get_quote_table(ticker)
