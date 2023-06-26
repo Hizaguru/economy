@@ -16,7 +16,7 @@ For Windows: `venv\Scripts\activate`
 
 7. In the notebook, find the section where the tickers array is defined. Add the tickers of your portfolio to this array, separating each ticker with a comma. For example: `tickers = ['AAPL', 'GOOG', 'MSFT']`
 
-8.     Run the script by executing each cell in the notebook. This will calculate the assets of your portfolio based on the provided tickers.
+8. Run the script by executing each cell in the notebook. This will calculate the assets of your portfolio based on the provided tickers.
 
 Note: Ensure that you have an active internet connection while running the script, as it retrieves stock data from online sources.
 
