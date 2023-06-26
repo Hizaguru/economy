@@ -5,10 +5,10 @@ from yahoo_fin.stock_info import get_analysts_info
 #Helper functions for the main notebook
 
 def intrinsic_value(eps, five_years_growth_rate, current_yield_of_aaa_corporate_bonds):
-    v = (eps * (7 + (1.0*five_years_growth_rate)) * 4.4)
-    print(v/current_yield_of_aaa_corporate_bonds)
-    return v/current_yield_of_aaa_corporate_bonds
-
+    if(eps and five_years_growth_rate and current_yield_of_aaa_corporate_bonds):
+        v = (eps * (7 + (1.0*five_years_growth_rate)) * 4.4)
+        return v/current_yield_of_aaa_corporate_bonds
+    return 'N/A'
 def safety_margin(instrincic_value, current_price):
     return current_price/instrincic_value
 
