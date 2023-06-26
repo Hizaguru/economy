@@ -35,14 +35,14 @@ def get_data(ticker, ng_pe, multiplier, margin):
     eps = quote["EPS (TTM)"]
     growth_df = get_analysts_info(ticker)['Growth Estimates']
     growth_rate = growth_df.iloc[4][1] 
-    growth_rate = str(growth_rate).rstrip("%") if isinstance(growth_rate, str) else ""
+    growth_rate = str(growth_rate).rstrip("%") if isinstance(growth_rate, str) else ''
     aaa_df = pdr.get_data_fred('AAA')
     current_yield = aaa_df.iloc[-1][0]
 
     output = {
         "current_price": float(current_price),
         "eps": float(eps),
-        "growth_rate": float(growth_rate) if growth_rate else 'N/A',
+        "growth_rate": float(growth_rate) if growth_rate else '',
         "current_yield": float(current_yield),
         "ng_pe": float(ng_pe),
         "multiplier": float(multiplier),
