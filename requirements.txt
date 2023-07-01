@@ -2,4 +2,5 @@ CurrencyConverter==0.17.7
 pandas==1.5.3
 pandas-datareader==0.10.0
 yahoo-fin==0.8.9.1
-
+jinja2==2.11.2
+yfinance==0.1.55
