@@ -16,7 +16,7 @@ def intrinsic_value(eps, five_years_growth_rate, current_yield_of_aaa_corporate_
 
 
 # Calculate the safety margin of a stock based on its intrinsic value and current price.
-def safety_margin(instrincic_value, current_price):
+def margin_of_safety(instrincic_value, current_price):
     return current_price / instrincic_value
 
 
@@ -40,7 +40,7 @@ def five_year_growth_estimate(ticker):
 
 # Retrieve data for a stock, including current price, EPS, growth rate,
 # current yield, P/E ratio, multiplier, and margin.
-def get_data(ticker, multiplier, margin):
+def get_data(ticker):
     next_5_years_growth_rate = five_year_growth_estimate(ticker)
     aaa_df = pdr.get_data_fred("AAA")
     current_yield = aaa_df.iloc[-1][0]
@@ -48,7 +48,5 @@ def get_data(ticker, multiplier, margin):
     output = {
         "Growth Rate": float(next_5_years_growth_rate.rstrip("%")),
         "Current Yield": float(current_yield),
-        "Multiplier": float(multiplier),
-        "Margin": float(margin),
     }
     return output
