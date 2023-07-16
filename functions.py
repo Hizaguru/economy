@@ -36,9 +36,6 @@ def buy_or_sell(acceptable_buy_price, current_price):
 # Retrieve data for a stock, including current price, EPS, growth rate,
 # current yield, P/E ratio, multiplier, and margin.
 def get_data(ticker, ng_pe, multiplier, margin):
-    quote = si.get_quote_table(ticker)
-    current_price = quote["Quote Price"]
-    eps = quote["EPS (TTM)"]
     growth_df = get_analysts_info(ticker)["Growth Estimates"]
     growth_rate = growth_df.iloc[4][1]
     growth_rate = str(growth_rate).rstrip("%") if isinstance(growth_rate, str) else ""
@@ -49,11 +46,8 @@ def get_data(ticker, ng_pe, multiplier, margin):
         ng_pe = 0.0
 
     output = {
-        "Current Price": float(current_price),
-        "Eps": float(eps),
         "Growth Rate": float(growth_rate) if growth_rate else "",
         "Current Yield": float(current_yield),
-        "P/E": float(ng_pe),
         "Multiplier": float(multiplier),
         "Margin": float(margin),
     }
