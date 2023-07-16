@@ -28,9 +28,11 @@ def acceptable_buy_price(margin_of_safety, difference):
 # Determine whether to buy or sell a stock based on the acceptable buy price and current price.
 def buy_or_sell(acceptable_buy_price, current_price):
     if acceptable_buy_price > current_price:
-        return "buy"
+        return "Buy"
+    elif acceptable_buy_price == current_price:
+        return "Hold"
     else:
-        return "sell"
+        return "Sell"
 
 
 def five_year_growth_estimate(ticker):
@@ -46,7 +48,9 @@ def get_data(ticker):
     current_yield = aaa_df.iloc[-1][0]
 
     output = {
-        "Growth Rate": float(next_5_years_growth_rate.rstrip("%")),
+        "Growth Rate": float(next_5_years_growth_rate.rstrip("%"))
+        if isinstance(next_5_years_growth_rate, str)
+        else next_5_years_growth_rate,
         "Current Yield": float(current_yield),
     }
     return output
