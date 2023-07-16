@@ -33,20 +33,20 @@ def buy_or_sell(acceptable_buy_price, current_price):
         return "sell"
 
 
+def five_year_growth_estimate(ticker):
+    growth_estimates = get_analysts_info(ticker)["Growth Estimates"]
+    return growth_estimates.loc[4, ticker]
+
+
 # Retrieve data for a stock, including current price, EPS, growth rate,
 # current yield, P/E ratio, multiplier, and margin.
-def get_data(ticker, ng_pe, multiplier, margin):
-    growth_df = get_analysts_info(ticker)["Growth Estimates"]
-    growth_rate = growth_df.iloc[4][1]
-    growth_rate = str(growth_rate).rstrip("%") if isinstance(growth_rate, str) else ""
+def get_data(ticker, multiplier, margin):
+    next_5_years_growth_rate = five_year_growth_estimate(ticker)
     aaa_df = pdr.get_data_fred("AAA")
     current_yield = aaa_df.iloc[-1][0]
 
-    if ng_pe is None:
-        ng_pe = 0.0
-
     output = {
-        "Growth Rate": float(growth_rate) if growth_rate else "",
+        "Growth Rate": float(next_5_years_growth_rate.rstrip("%")),
         "Current Yield": float(current_yield),
         "Multiplier": float(multiplier),
         "Margin": float(margin),
