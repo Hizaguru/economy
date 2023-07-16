@@ -24,12 +24,14 @@ def margin_of_safety(instrincic_value, current_price):
 
 
 # Calculate the acceptable buy price based on the safety margin and a difference factor.
-def acceptable_buy_price(margin_of_safety, difference):
-    return margin_of_safety * difference
+def acceptable_buy_price(margin_of_safety, intrinsic_val):
+    print("margin_of_safety", margin_of_safety)
+    return margin_of_safety * intrinsic_val
 
 
 # Determine whether to buy or sell a stock based on the acceptable buy price and current price.
 def buy_or_sell(acceptable_buy_price, current_price):
+    print("acceptable buy price", acceptable_buy_price, current_price)
     if acceptable_buy_price > current_price:
         return "Buy"
     elif acceptable_buy_price == current_price:
@@ -64,14 +66,18 @@ def process_stock_data(
     data = get_data(symbol)
     current_yield = data["Current Yield"]
     five_year_growth_rate = data["Growth Rate"]
+    print(five_year_growth_rate)
     eps = stock_info.get("trailingEps")
+    print("eps", eps)
     intrinsic_val = intrinsic_value(eps, current_yield, five_year_growth_rate)
+    print("intrinsic_val", intrinsic_val)
     current_price = stock_info.get("previousClose")
-    difference = current_price / intrinsic_value(
-        eps, current_yield, five_year_growth_rate
-    )
-    buy_price = round(acceptable_buy_price(intrinsic_val, difference), 2)
-    safety_margin = margin_of_safety(intrinsic_val, current_price)
+    print("current_price", current_price)
+
+    SAFETY_MARGIN = 0.65
+    print("safety_margin", SAFETY_MARGIN)
+    buy_price = acceptable_buy_price(SAFETY_MARGIN, intrinsic_val)
+    print("buy_price", buy_price)
     buy_sell = buy_or_sell(buy_price, current_price)
     d = {}
     for k, v in stock_info.items():
@@ -87,7 +93,7 @@ def process_stock_data(
     d["symbol"] = [symbol]
     d["Five year growth"] = [five_year_growth_rate]
     d["Intrinsic value"] = [intrinsic_val]
-    d["safety margin"] = [safety_margin]
+    d["safety margin"] = [SAFETY_MARGIN]
     d["Acceptable buying price"] = [buy_price]
     d["Buy/Sell"] = [buy_sell]
     return d
