@@ -3,12 +3,12 @@ import yahoo_fin.stock_info as si
 from yahoo_fin.stock_info import get_analysts_info
 from currency_converter import CurrencyConverter
 
-
+# Converts SEK to EUR
 c = CurrencyConverter()
 ROUND_TO_BILLIONS = 0.000001
+
+
 # Helper functions for the main notebook
-
-
 # Calculate the intrinsic value of a stock based on earnings per share (EPS),
 # five-year growth rate, and current yield of AAA corporate bonds.
 def intrinsic_value(eps, five_years_growth_rate, current_yield_of_aaa_corporate_bonds):
