@@ -6,6 +6,7 @@ from currency_converter import CurrencyConverter
 # Converts SEK to EUR
 c = CurrencyConverter()
 ROUND_TO_BILLIONS = 0.000001
+MARGIN_OF_SAFETY = 0.65
 
 
 # Helper functions for the main notebook
@@ -13,23 +14,22 @@ ROUND_TO_BILLIONS = 0.000001
 # five-year growth rate, and current yield of AAA corporate bonds.
 def intrinsic_value(eps, five_years_growth_rate, current_yield_of_aaa_corporate_bonds):
     if eps and five_years_growth_rate and current_yield_of_aaa_corporate_bonds:
-        v = eps * (7 + (1.0 * five_years_growth_rate)) * 4.4
+        v = eps * (7.0 + (1.0 * five_years_growth_rate)) * 4.4
         return v / current_yield_of_aaa_corporate_bonds
     return "N/A"
 
 
-# Calculate the safety margin of a stock based on its intrinsic value and current price.
-def margin_of_safety(instrincic_value, current_price):
-    return current_price / instrincic_value
+int_val = intrinsic_value(5.11, 17.93, 2.57)
 
 
 # Calculate the acceptable buy price based on the safety margin and a difference factor.
-def acceptable_buy_price(margin_of_safety, difference):
-    return margin_of_safety * difference
+def acceptable_buy_price(intrinsic_val):
+    return MARGIN_OF_SAFETY * intrinsic_val
 
 
 # Determine whether to buy or sell a stock based on the acceptable buy price and current price.
 def buy_or_sell(acceptable_buy_price, current_price):
+    print("acceptable buy price", acceptable_buy_price, current_price)
     if acceptable_buy_price > current_price:
         return "Buy"
     elif acceptable_buy_price == current_price:
@@ -43,8 +43,7 @@ def five_year_growth_estimate(ticker):
     return growth_estimates.loc[4, ticker]
 
 
-# Retrieve data for a stock, including current price, EPS, growth rate,
-# current yield, P/E ratio, multiplier, and margin.
+# Retrieve data for a stock from Yahoo Finance.
 def get_data(ticker):
     next_5_years_growth_rate = five_year_growth_estimate(ticker)
     aaa_df = pdr.get_data_fred("AAA")
@@ -64,15 +63,17 @@ def process_stock_data(
 ):
     data = get_data(symbol)
     current_yield = data["Current Yield"]
+    print("current yield", current_yield)
     five_year_growth_rate = data["Growth Rate"]
+    print("five year growth", five_year_growth_rate)
     eps = stock_info.get("trailingEps")
+    print("eps", eps)
     intrinsic_val = intrinsic_value(eps, current_yield, five_year_growth_rate)
+    print("intrinsic_val", intrinsic_val)
     current_price = stock_info.get("previousClose")
-    difference = current_price / intrinsic_value(
-        eps, current_yield, five_year_growth_rate
-    )
-    buy_price = round(acceptable_buy_price(intrinsic_val, difference), 2)
-    safety_margin = margin_of_safety(intrinsic_val, current_price)
+
+    buy_price = acceptable_buy_price(intrinsic_val)
+    print("buy_price", buy_price)
     buy_sell = buy_or_sell(buy_price, current_price)
     d = {}
     for k, v in stock_info.items():
@@ -88,7 +89,7 @@ def process_stock_data(
     d["symbol"] = [symbol]
     d["Five year growth"] = [five_year_growth_rate]
     d["Intrinsic value"] = [intrinsic_val]
-    d["safety margin"] = [safety_margin]
+    d["safety margin"] = [MARGIN_OF_SAFETY]
     d["Acceptable buying price"] = [buy_price]
     d["Buy/Sell"] = [buy_sell]
     return d
