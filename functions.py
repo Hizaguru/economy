@@ -1,8 +1,11 @@
 import pandas_datareader as pdr
 import yahoo_fin.stock_info as si
 from yahoo_fin.stock_info import get_analysts_info
+from currency_converter import CurrencyConverter
 
 
+c = CurrencyConverter()
+ROUND_TO_BILLIONS = 0.000001
 # Helper functions for the main notebook
 
 
@@ -54,3 +57,38 @@ def get_data(ticker):
         "Current Yield": float(current_yield),
     }
     return output
+
+
+def process_stock_data(
+    stock_info, wanted_values, rounded_values, convert_to_euros, symbol
+):
+    data = get_data(symbol)
+    current_yield = data["Current Yield"]
+    five_year_growth_rate = data["Growth Rate"]
+    eps = stock_info.get("trailingEps")
+    intrinsic_val = intrinsic_value(eps, current_yield, five_year_growth_rate)
+    current_price = stock_info.get("previousClose")
+    difference = current_price / intrinsic_value(
+        eps, current_yield, five_year_growth_rate
+    )
+    buy_price = round(acceptable_buy_price(intrinsic_val, difference), 2)
+    safety_margin = margin_of_safety(intrinsic_val, current_price)
+    buy_sell = buy_or_sell(buy_price, current_price)
+    d = {}
+    for k, v in stock_info.items():
+        if k in wanted_values:
+            if k in rounded_values:
+                v *= ROUND_TO_BILLIONS
+            elif k in convert_to_euros and stock_info.get("currency") == "SEK":
+                v = round(c.convert(v, "SEK", "EUR"), 1) * ROUND_TO_BILLIONS
+            elif k == "enterpriseValue":
+                v *= ROUND_TO_BILLIONS
+            d[k] = [v]
+    # Custom columns
+    d["symbol"] = [symbol]
+    d["Five year growth"] = [five_year_growth_rate]
+    d["Intrinsic value"] = [intrinsic_val]
+    d["safety margin"] = [safety_margin]
+    d["Acceptable buying price"] = [buy_price]
+    d["Buy/Sell"] = [buy_sell]
+    return d
