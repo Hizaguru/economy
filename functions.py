@@ -43,8 +43,7 @@ def five_year_growth_estimate(ticker):
     return growth_estimates.loc[4, ticker]
 
 
-# Retrieve data for a stock, including current price, EPS, growth rate,
-# current yield, P/E ratio, multiplier, and margin.
+# Retrieve data for a stock from Yahoo Finance.
 def get_data(ticker):
     next_5_years_growth_rate = five_year_growth_estimate(ticker)
     aaa_df = pdr.get_data_fred("AAA")
