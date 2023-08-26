@@ -29,7 +29,6 @@ def acceptable_buy_price(intrinsic_val):
 
 # Determine whether to buy or sell a stock based on the acceptable buy price and current price.
 def buy_or_sell(acceptable_buy_price, current_price):
-    print("acceptable buy price", acceptable_buy_price, current_price)
     if acceptable_buy_price > current_price:
         return "Buy"
     elif acceptable_buy_price == current_price:
@@ -63,17 +62,12 @@ def process_stock_data(
 ):
     data = get_data(symbol)
     current_yield = data["Current Yield"]
-    print("current yield", current_yield)
     five_year_growth_rate = data["Growth Rate"]
-    print("five year growth", five_year_growth_rate)
     eps = stock_info.get("trailingEps")
-    print("eps", eps)
     intrinsic_val = intrinsic_value(eps, current_yield, five_year_growth_rate)
-    print("intrinsic_val", intrinsic_val)
     current_price = stock_info.get("previousClose")
 
     buy_price = acceptable_buy_price(intrinsic_val)
-    print("buy_price", buy_price)
     buy_sell = buy_or_sell(buy_price, current_price)
     d = {}
     for k, v in stock_info.items():
